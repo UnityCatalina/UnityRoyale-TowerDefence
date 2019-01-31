@@ -24,7 +24,7 @@ public class AttackBehaviour : StateMachineBehaviour
         {
             fire.SetActive(false);
             if(projectile)
-				Instantiate(projectile, animator.gameObject.transform.Find("Pivot").position, Quaternion.identity);
+				Instantiate(projectile, GameObject.FindGameObjectWithTag("Pivot").transform.position, Quaternion.identity);
             attack = true;
         }
     }

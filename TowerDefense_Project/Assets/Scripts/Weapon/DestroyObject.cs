@@ -1,13 +1,11 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class DestroyObject : MonoBehaviour
 {
-    void Awake()
-    {
-        Destroy(this.gameObject, 2.0f);
-    }
+	public float timeToLive = 2f;
 
-  
+    void Start()
+    {
+        Destroy(gameObject, timeToLive);
+    }  
 }

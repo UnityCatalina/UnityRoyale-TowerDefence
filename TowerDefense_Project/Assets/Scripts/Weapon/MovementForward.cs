@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class MovementForward : MonoBehaviour
 {
@@ -25,7 +23,7 @@ public class MovementForward : MonoBehaviour
     void  OnTriggerEnter(Collider other)
     {
         if(burn)
-            Instantiate(burn, transform.position, Quaternion.identity);
+            Instantiate( burn, transform.position, Quaternion.identity);
         Destroy(this.gameObject);
     }
 }

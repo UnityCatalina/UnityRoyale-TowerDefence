@@ -164,7 +164,12 @@ ModelImporter:
     13700000: Archer_Arrow
     13700002: Archer_Body
     13700004: Archer_Bow
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Archer_char
+    second: {fileID: 2100000, guid: 56536bae93ee26e44bdc5e12d7f96601, type: 2}
   materials:
     importMaterials: 1
     materialName: 0
