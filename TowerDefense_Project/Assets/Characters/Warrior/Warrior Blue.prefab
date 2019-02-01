@@ -10,22 +10,22 @@ PrefabInstance:
     - target: {fileID: 5701704621631426976, guid: 36e93c435d1648a4c86d516057a9cbe2,
         type: 3}
       propertyPath: m_Name
-      value: Warrior Red
+      value: Warrior Blue
       objectReference: {fileID: 0}
     - target: {fileID: 6826973555475864791, guid: 36e93c435d1648a4c86d516057a9cbe2,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -10.591124
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6826973555475864791, guid: 36e93c435d1648a4c86d516057a9cbe2,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.01
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6826973555475864791, guid: 36e93c435d1648a4c86d516057a9cbe2,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -2.240551
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6826973555475864791, guid: 36e93c435d1648a4c86d516057a9cbe2,
         type: 3}
@@ -67,12 +67,12 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4942601917638766232, guid: 36e93c435d1648a4c86d516057a9cbe2,
+    - target: {fileID: 9079477636060439939, guid: 36e93c435d1648a4c86d516057a9cbe2,
         type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: ede081b021db11e46bbb3bbf5a5b9b24, type: 2}
-    - target: {fileID: 9079477636060439939, guid: 36e93c435d1648a4c86d516057a9cbe2,
+    - target: {fileID: 4942601917638766232, guid: 36e93c435d1648a4c86d516057a9cbe2,
         type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 

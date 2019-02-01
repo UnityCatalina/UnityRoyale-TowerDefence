@@ -11,17 +11,23 @@ PrefabInstance:
       propertyPath: m_Name
       value: Mage Blue
       objectReference: {fileID: 0}
+    - target: {fileID: 1107439388053995260, guid: ddbc89a2e5731354497399c2803d9354,
+        type: 3}
+      propertyPath: projectilePrefab
+      value: 
+      objectReference: {fileID: 7188883627273461771, guid: 8a05c625f29678e4182665a50155cc59,
+        type: 3}
     - target: {fileID: 1122871592, guid: ddbc89a2e5731354497399c2803d9354, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -13.367591
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1122871592, guid: ddbc89a2e5731354497399c2803d9354, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.01
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1122871592, guid: ddbc89a2e5731354497399c2803d9354, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -2.945592
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1122871592, guid: ddbc89a2e5731354497399c2803d9354, type: 3}
       propertyPath: m_LocalRotation.x
@@ -55,17 +61,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1107439388053995260, guid: ddbc89a2e5731354497399c2803d9354,
-        type: 3}
-      propertyPath: projectilePrefab
-      value: 
-      objectReference: {fileID: 7188883627273461771, guid: 8a05c625f29678e4182665a50155cc59,
-        type: 3}
-    - target: {fileID: 2022460061, guid: ddbc89a2e5731354497399c2803d9354, type: 3}
+    - target: {fileID: 677874271, guid: ddbc89a2e5731354497399c2803d9354, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: bfbc8c919d7c12947aa8154e211a1296, type: 2}
-    - target: {fileID: 677874271, guid: ddbc89a2e5731354497399c2803d9354, type: 3}
+    - target: {fileID: 2022460061, guid: ddbc89a2e5731354497399c2803d9354, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: bfbc8c919d7c12947aa8154e211a1296, type: 2}

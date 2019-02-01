@@ -10,22 +10,22 @@ PrefabInstance:
     - target: {fileID: 5537164977549460556, guid: f7e6e31c5324d874db515c8ca4922190,
         type: 3}
       propertyPath: m_Name
-      value: Archer Red
+      value: Archer Blue
       objectReference: {fileID: 0}
     - target: {fileID: 7741071500584641686, guid: f7e6e31c5324d874db515c8ca4922190,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -10.392583
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7741071500584641686, guid: f7e6e31c5324d874db515c8ca4922190,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.01
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7741071500584641686, guid: f7e6e31c5324d874db515c8ca4922190,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -2.4014044
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7741071500584641686, guid: f7e6e31c5324d874db515c8ca4922190,
         type: 3}
@@ -72,12 +72,12 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 1053a69e8ac1bd7458d5d6959df1cf68, type: 2}
-    - target: {fileID: 2234497944185539876, guid: f7e6e31c5324d874db515c8ca4922190,
+    - target: {fileID: 2462667519597721828, guid: f7e6e31c5324d874db515c8ca4922190,
         type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 1053a69e8ac1bd7458d5d6959df1cf68, type: 2}
-    - target: {fileID: 2462667519597721828, guid: f7e6e31c5324d874db515c8ca4922190,
+    - target: {fileID: 2234497944185539876, guid: f7e6e31c5324d874db515c8ca4922190,
         type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
