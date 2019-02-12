@@ -2,6 +2,12 @@
 # Project Specific Ignores
 # =========================
 
+.gradle/
+.vscode/
+Recordings/
+Unity Recorder/
+Unity Recorder.meta
+
 
 # =========================
 # General Unity Files
