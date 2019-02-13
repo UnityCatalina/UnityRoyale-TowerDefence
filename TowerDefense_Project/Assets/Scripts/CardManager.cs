@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using DG.Tweening;
 
 namespace UnityRoyale
 {
@@ -20,42 +21,35 @@ namespace UnityRoyale
         public Card[] cards; //TODO: make private, when cards are generated dynamically
         
         private bool cardIsActive = false; //when true, a card is being dragged over the play field
-        private GameObject previewCard;
+        private GameObject previewHolder;
         private Vector3 inputCreationOffset = new Vector3(0f, 0f, 2f); //offsets the creation of units so that they are not under the player's finger
 
         private void Awake()
         {
-            previewCard = new GameObject("CardPreview");
+            previewHolder = new GameObject("PreviewHolder");
         }
 
         private void Start()
         {
             //setup initial cards and listeners
             
-            AddCardToDeck();
+            StartCoroutine(AddCardToDeck(.1f));
             for(int i=0; i<cards.Length; i++)
             {
-                PromoteCardFromDeck(i);
+                StartCoroutine(PromoteCardFromDeck(i, .4f + i));
+                StartCoroutine(AddCardToDeck(.8f + i));
             }
         }
 
-        //adds a new card to the deck on the left, ready to be used
-        private void AddCardToDeck() //TODO: pass in the CardData dynamically
-        {
-            backupCardTransform = Instantiate<GameObject>(cardPrefab, cardsPanel).GetComponent<RectTransform>();
-            backupCardTransform.anchoredPosition = new Vector2(120f, 0f);
-            backupCardTransform.localScale = Vector3.one * 0.7f;
-
-            Card cardScript = backupCardTransform.GetComponent<Card>();
-            cardScript.cardData = fakeCardData;
-        }
-
         //moves the preview card from the deck to the active card dashboard
-        private void PromoteCardFromDeck(int position)
+        private IEnumerator PromoteCardFromDeck(int position, float delay = 0f)
         {
+            yield return new WaitForSeconds(delay);
+
             backupCardTransform.SetParent(cardsDashboard, true);
             //move and scale into position
-            backupCardTransform.anchoredPosition = new Vector2(220f * (position+1), 0f);
+            backupCardTransform.DOAnchorPos(new Vector2(220f * (position+1), 0f),
+                                            .2f + (.05f*position)).SetEase(Ease.OutQuad);
             backupCardTransform.localScale = Vector3.one;
 
             //store a reference to the Card component in the array
@@ -67,13 +61,29 @@ namespace UnityRoyale
             cardScript.OnTapDownAction += CardTapped;
             cardScript.OnDragAction += CardDragged;
             cardScript.OnTapReleaseAction += CardReleased;
+        }
 
-            AddCardToDeck();
+        //adds a new card to the deck on the left, ready to be used
+        private IEnumerator AddCardToDeck(float delay = 0f) //TODO: pass in the CardData dynamically
+        {
+            yield return new WaitForSeconds(delay);
+
+            //create new card
+            backupCardTransform = Instantiate<GameObject>(cardPrefab, cardsPanel).GetComponent<RectTransform>();
+            backupCardTransform.localScale = Vector3.one * 0.7f;
+            
+            //send it to the bottom left corner
+            backupCardTransform.anchoredPosition = new Vector2(120f, -300f);
+            backupCardTransform.DOAnchorPos(new Vector2(120f, 0f), .2f).SetEase(Ease.OutQuad);
+
+            //populate CardData on the Card script
+            Card cardScript = backupCardTransform.GetComponent<Card>();
+            cardScript.cardData = fakeCardData;
         }
 
         private void CardTapped(int cardId)
         {
-        
+            cards[cardId].GetComponent<RectTransform>().SetAsLastSibling();
         }
 
         private void CardDragged(int cardId, Vector2 dragAmount)
@@ -91,7 +101,7 @@ namespace UnityRoyale
                 if(!cardIsActive)
                 {
                     cardIsActive = true;
-                    previewCard.transform.position = hit.point;
+                    previewHolder.transform.position = hit.point;
                     cards[cardId].ChangeActiveState(true); //hide card
 
                     //retrieve arrays from the CardData
@@ -104,13 +114,13 @@ namespace UnityRoyale
                         GameObject newPlaceable = GameObject.Instantiate<GameObject>(dataToSpawn[i].associatedPrefab,
                                                                                     hit.point + offsets[i] + inputCreationOffset,
                                                                                     Quaternion.identity,
-                                                                                    previewCard.transform);
+                                                                                    previewHolder.transform);
                     }
                 }
                 else
                 {
                     //temporary copy has been created, we move it along with the cursor
-                    previewCard.transform.position = hit.point;
+                    previewHolder.transform.position = hit.point;
                 }
             }
             else
@@ -138,12 +148,14 @@ namespace UnityRoyale
 
                 ClearPreviewObjects();
                 Destroy(cards[cardId].gameObject); //remove the card itself
-                PromoteCardFromDeck(cardId);
+                
+                StartCoroutine(PromoteCardFromDeck(cardId, .2f));
+                StartCoroutine(AddCardToDeck(.3f));
             }
             else
             {
-                //cards[cardId].ChangeActiveState(false); //show card
-                //TODO: return it to position
+                cards[cardId].GetComponent<RectTransform>().DOAnchorPos(new Vector2(220f * (cardId+1), 0f),
+                                                                        .2f).SetEase(Ease.OutQuad);
             }
         }
 
@@ -151,9 +163,9 @@ namespace UnityRoyale
         private void ClearPreviewObjects()
         {
             //destroy all the preview Placeables
-            for(int i=0; i<previewCard.transform.childCount; i++)
+            for(int i=0; i<previewHolder.transform.childCount; i++)
             {
-                Destroy(previewCard.transform.GetChild(i).gameObject);
+                Destroy(previewHolder.transform.GetChild(i).gameObject);
             }
         }
     }
