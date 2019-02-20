@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.Events;
+using UnityEngine.UI;
 
 namespace UnityRoyale
 {
@@ -11,14 +12,22 @@ namespace UnityRoyale
         public UnityAction<int, Vector2> OnDragAction;
         public UnityAction<int> OnTapDownAction, OnTapReleaseAction;
 
-        public int cardId;
-        public CardData cardData;
+        [HideInInspector] public int cardId;
+        [HideInInspector] public CardData cardData;
 
+        public Image portraitImage; //Inspector-set reference
         private CanvasGroup canvasGroup;
 
         private void Awake()
         {
             canvasGroup = GetComponent<CanvasGroup>();
+        }
+
+        //called by CardManager, it feeds CardData so this card can display the placeable's portrait
+        public void InitialiseWithData(CardData cData)
+        {
+            cardData = cData;
+            portraitImage.sprite = cardData.cardImage;
         }
 
         public void OnPointerDown(PointerEventData pointerEvent)

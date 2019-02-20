@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 using DG.Tweening;
+using System;
 
 namespace UnityRoyale
 {
@@ -10,36 +11,47 @@ namespace UnityRoyale
     {
         public Camera mainCamera; //public reference
         public LayerMask playingFieldMask;
-        public UnityAction<CardData, Vector3> OnCardUsed;
-        public CardData fakeCardData; //TODO: REMOVE
+        public GameObject cardPrefab;
+        public DeckData playersDeck;
+        public UnityAction<CardData, Vector3, Placeable.Faction> OnCardUsed;
         
+        [Header("UI Elements")]
         public RectTransform backupCardTransform; //the smaller card that sits in the deck
         public RectTransform cardsDashboard; //the UI panel that contains the actual playable cards
         public RectTransform cardsPanel; //the UI panel that contains all cards, the deck, and the dashboard (center aligned)
-
-        public GameObject cardPrefab;
-        public Card[] cards; //TODO: make private, when cards are generated dynamically
         
+        private Card[] cards;
         private bool cardIsActive = false; //when true, a card is being dragged over the play field
         private GameObject previewHolder;
-        private Vector3 inputCreationOffset = new Vector3(0f, 0f, 2f); //offsets the creation of units so that they are not under the player's finger
+        private Vector3 inputCreationOffset = new Vector3(0f, 0f, 1f); //offsets the creation of units so that they are not under the player's finger
 
         private void Awake()
         {
             previewHolder = new GameObject("PreviewHolder");
+            cards = new Card[3]; //3 is the length of the dashboard
         }
 
-        private void Start()
+        public void LoadDeck()
         {
-            //setup initial cards and listeners
-            
+            DeckLoader newDeckLoaderComp = gameObject.AddComponent<DeckLoader>();
+            newDeckLoaderComp.OnDeckLoaded += DeckLoaded;
+            newDeckLoaderComp.LoadDeck(playersDeck);
+        }
+
+        //...
+
+		private void DeckLoaded()
+		{
+            Debug.Log("Player's deck loaded");
+
+            //setup initial cards
             StartCoroutine(AddCardToDeck(.1f));
             for(int i=0; i<cards.Length; i++)
             {
                 StartCoroutine(PromoteCardFromDeck(i, .4f + i));
                 StartCoroutine(AddCardToDeck(.8f + i));
             }
-        }
+		}
 
         //moves the preview card from the deck to the active card dashboard
         private IEnumerator PromoteCardFromDeck(int position, float delay = 0f)
@@ -78,7 +90,7 @@ namespace UnityRoyale
 
             //populate CardData on the Card script
             Card cardScript = backupCardTransform.GetComponent<Card>();
-            cardScript.cardData = fakeCardData;
+            cardScript.InitialiseWithData(playersDeck.GetNextCardFromDeck());
         }
 
         private void CardTapped(int cardId)
@@ -144,7 +156,7 @@ namespace UnityRoyale
             if (Physics.Raycast(ray, out hit, Mathf.Infinity, playingFieldMask))
             {
                 if(OnCardUsed != null)
-                    OnCardUsed(cards[cardId].cardData, hit.point + inputCreationOffset); //GameManager picks this up to spawn the actual Placeable
+                    OnCardUsed(cards[cardId].cardData, hit.point + inputCreationOffset, Placeable.Faction.Player); //GameManager picks this up to spawn the actual Placeable
 
                 ClearPreviewObjects();
                 Destroy(cards[cardId].gameObject); //remove the card itself

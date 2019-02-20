@@ -1,6 +1,7 @@
 {
   "registry": "https://staging-packages.unity.com",
   "dependencies": {
+    "com.unity.addressables": "1.0.2-preview.1",
     "com.unity.cinemachine": "2.2.6",
     "com.unity.package-manager-ui": "2.0.3",
     "com.unity.postprocessing": "2.1.3",
