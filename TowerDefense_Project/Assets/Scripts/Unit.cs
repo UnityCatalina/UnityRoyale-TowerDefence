@@ -43,79 +43,37 @@ namespace UnityRoyale
             navMeshAgent.enabled = true;
         }
 
-        public void StartAttack()
+        public override void StartAttack()
         {
-            state = States.Attacking;
+            base.StartAttack();
+
             navMeshAgent.isStopped = true;
             animator.SetBool("IsMoving", false);
-            DealAttack();
         }
 
-        private void DealAttack()
+        public override void DealBlow()
         {
-            Debug.Log("Dealing attack at " + Time.time, gameObject);
+            base.DealBlow();
+
             animator.SetTrigger("Attack");
-            lastAttackTime = Time.time;
-
             transform.forward = (target.transform.position - transform.position).normalized; //turn towards the target
-
-            if(OnDealDamage != null)
-                OnDealDamage(this, target, damage);
         }
 
         public override void SetTarget(ThinkingPlaceable t)
         {
             base.SetTarget(t);
-            Debug.Log("Setting target");
         }
 
-        private void WalkToTarget()
+        public override void Seek()
         {
             if(target == null)
                 return;
 
-            state = States.Walking;
+            base.Seek();
+
             navMeshAgent.SetDestination(target.transform.position);
             navMeshAgent.isStopped = false;
             animator.SetBool("IsMoving", true);
-        }
-
-        public override void UpdateLoop()
-        {
-            switch(state)
-            {
-                case States.Idle:
-                    WalkToTarget();
-                    break;
-
-
-                case States.Walking:
-                    if(IsTargetInRange())
-                    {
-                        StartAttack();
-                    }
-                    else
-                    {
-                        WalkToTarget();
-                    }
-                    break;
-
-
-                case States.Attacking:
-                    if(IsTargetInRange())
-                    {
-                        if(Time.time >= lastAttackTime + attackRatio)
-                        {
-                            DealAttack();
-                        }
-                    }
-                    else
-                    {
-                        Debug.Log("Repositioning during attack", gameObject);
-                        state = States.Idle;
-                    }
-                    break;
-            }
         }
 
         protected override void Die()

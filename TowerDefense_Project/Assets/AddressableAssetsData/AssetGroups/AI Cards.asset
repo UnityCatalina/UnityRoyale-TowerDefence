@@ -10,16 +10,26 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
-  m_Name: Remote Cards
+  m_Name: AI Cards
   m_EditorClassIdentifier: 
-  m_GroupName: Remote Cards
+  m_GroupName: AI Cards
   m_Data:
     m_SerializedData: []
-  m_GUID: 73692909e5f4949649ff7d216a6e889a
-  m_SerializeEntries: []
+  m_GUID: 658a4955029da4d06a2a88f4d4ffb232
+  m_SerializeEntries:
+  - m_GUID: 3c5eb71ff2e974ce88c45317fe5ee720
+    m_Address: Innocuous Blue Warrior
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - AI Test
+  - m_GUID: 88d6ac14f5e1c45f8924d3460a7d85ce
+    m_Address: BlueWarrior
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - AI Test
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 62fd5e501abef4d188f123698eca5c92, type: 2}
   m_SchemaSet:
     m_Schemas:
-    - {fileID: 11400000, guid: aeadaee9d39b6455fa6a768d7684d901, type: 2}
-    - {fileID: 11400000, guid: c463ed6a2bfe542e9a75aaf8ea3ab9cc, type: 2}
+    - {fileID: 11400000, guid: 8aa56b609bb994f2ab232c62b7673068, type: 2}
+    - {fileID: 11400000, guid: ca70c12dd36ec400e81b996ede5922fa, type: 2}

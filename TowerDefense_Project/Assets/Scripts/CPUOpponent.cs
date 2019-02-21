@@ -28,9 +28,9 @@ namespace UnityRoyale
 			Debug.Log("AI deck loaded");
             StartActing(); //TODO: re-enable
 
-            OnCardUsed(aiDeck.GetNextCardFromDeck(), Vector3.forward * 3f, Placeable.Faction.Opponent);
-            OnCardUsed(aiDeck.GetNextCardFromDeck(), Vector3.forward * 3f + Vector3.right * 3f, Placeable.Faction.Opponent);
-            OnCardUsed(aiDeck.GetNextCardFromDeck(), Vector3.forward * 3f - Vector3.right * 3f, Placeable.Faction.Opponent);
+            // OnCardUsed(aiDeck.GetNextCardFromDeck(), Vector3.forward * 3f, Placeable.Faction.Opponent);
+            // OnCardUsed(aiDeck.GetNextCardFromDeck(), Vector3.forward * 3f + Vector3.right * 3f, Placeable.Faction.Opponent);
+            // OnCardUsed(aiDeck.GetNextCardFromDeck(), Vector3.forward * 3f - Vector3.right * 3f, Placeable.Faction.Opponent);
         }
 
         public void StartActing()

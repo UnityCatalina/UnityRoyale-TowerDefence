@@ -10,18 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
-  m_Name: Local
+  m_Name: Base Cards
   m_EditorClassIdentifier: 
-  m_GroupName: Local
+  m_GroupName: Base Cards
   m_Data:
     m_SerializedData: []
   m_GUID: 89f69edb07f484e64a54ee0e7b2d8a53
   m_SerializeEntries:
-  - m_GUID: 3c5eb71ff2e974ce88c45317fe5ee720
-    m_Address: Assets/GameData/2 Cards/BlueWarriorInnocuous.asset
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - AI Test
   - m_GUID: 45c451515fa5541a78a078d0fd1da57f
     m_Address: RedRockWarrior
     m_ReadOnly: 0
@@ -32,15 +27,12 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels:
     - Elite
-  - m_GUID: 88d6ac14f5e1c45f8924d3460a7d85ce
-    m_Address: BlueWarrior
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - AI Test
   - m_GUID: e27eea34851b44110a10d2b40b6c07c2
     m_Address: Rock
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - AI Test
+    - Base
   - m_GUID: f73961e850ac543fcb00d172e912b492
     m_Address: RedWarrior
     m_ReadOnly: 0

@@ -23,7 +23,7 @@ namespace UnityRoyale
 		private List<ThinkingPlaceable> allThinkinPlaceables;
         private bool gameOver = false;
         private bool updateAllPlaceables = false; //used to force an update of all AIBrains in the Update loop
-        private const float THINKING_DELAY = 3f;
+        private const float THINKING_DELAY = 2f;
 
         private void Awake()
         {
@@ -55,7 +55,7 @@ namespace UnityRoyale
             CPUOpponent.LoadDeck();
         }
 
-        //the Update loop pings all the AIBrains in the scene, and makes them act
+        //the Update loop pings all the ThinkingPlaceables in the scene, and makes them act
         private void Update()
         {
             if(gameOver)
@@ -68,21 +68,42 @@ namespace UnityRoyale
             {
                 p = allThinkinPlaceables[pN];
 
-                if(p.IsIdle()
-                    && p.targetType != Placeable.PlaceableTarget.None)
+                if(updateAllPlaceables)
+                    p.state = ThinkingPlaceable.States.Idle; //forces the assignment of a target in the switch below
+
+                switch(p.state)
                 {
-                    if(updateAllPlaceables
-                        || p.timeToActNext <= Time.time)
-                    {
+                    case ThinkingPlaceable.States.Idle:
+                        //this if is for innocuous testing Units
+                        if(p.targetType == Placeable.PlaceableTarget.None)
+                            break;
+
+                        //find closest target and assign it to the ThinkingPlaceable
                         bool targetFound = FindClosestInList(p.transform.position, GetAttackList(p.faction, p.targetType), out targetToPass);
                         if(!targetFound) Debug.LogError("No more targets!"); //this should only happen on Game Over
                         p.SetTarget(targetToPass);
+						p.Seek();
+                        break;
 
-                        p.timeToActNext = Time.time + THINKING_DELAY;
-                    }
+
+                    case ThinkingPlaceable.States.Seeking:
+						if(p.IsTargetInRange())
+                    	{
+							p.StartAttack();
+						}
+                        break;
+
+					case ThinkingPlaceable.States.Attacking:
+						if(p.IsTargetInRange())
+						{
+							if(Time.time >= p.lastBlowTime + p.attackRatio)
+							{
+								p.DealBlow();
+								p.target.SufferDamage(p.damage);
+							}
+						}
+						break;
                 }
-
-				p.UpdateLoop();
             }
 
             updateAllPlaceables = false; //is set to true by UseCard()
@@ -147,7 +168,6 @@ namespace UnityRoyale
                         Unit uScript = go.AddComponent<Unit>();
                         uScript.Activate(pFaction, pDataRef); //enables NavMeshAgent
                         AddPlaceableToList(uScript); //add the Unit to the appropriate list
-						uScript.OnDealDamage += OnDealDamage;
                         break;
 
                     case Placeable.PlaceableType.Building:
@@ -155,7 +175,6 @@ namespace UnityRoyale
                         Building bScript = go.AddComponent<Building>();
                         bScript.Activate(pFaction, pDataRef);
                         AddPlaceableToList(bScript); //add the Building to the appropriate list
-						bScript.OnDealDamage += OnDealDamage;
 
                         //special case for castles
                         if(pDataRef.pType == Placeable.PlaceableType.Castle)
@@ -188,12 +207,6 @@ namespace UnityRoyale
             Debug.Log("Castle destroyed");
             p.OnDie -= OnCastleDead;
             gameOver = true; //stops the thinking loop
-		}
-
-		private void OnDealDamage(ThinkingPlaceable attacker, ThinkingPlaceable target, float amount)
-		{
-            Debug.Log(attacker.name + " dealing " + amount + " damage to " + target.name);
-			target.SufferDamage(amount);
 		}
 
         private void OnPlaceableDead(Placeable p)

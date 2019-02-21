@@ -7,22 +7,21 @@ namespace UnityRoyale
 {
     public class ThinkingPlaceable : Placeable
     {
-        protected States state = States.Dragged;
-        protected enum States
+        public States state = States.Dragged;
+        public enum States
         {
             Dragged, //when the player is dragging it as a card on the play field
             Idle, //at the very beginning, when dropped
-            Walking, //going for the target
+            Seeking, //going for the target
             Attacking, //attack cycle animation, not moving
             Dead, //dead animation, before removal from play field
         }
-        protected ThinkingPlaceable target;
-        protected Vector3 targetPosition;
-        protected float hitPoints;
-        protected float attackRange;
-        protected float attackRatio;
-        protected float lastAttackTime;
-        protected float damage;
+        public ThinkingPlaceable target;
+        public float hitPoints;
+        public float attackRange;
+        public float attackRatio;
+        public float lastBlowTime;
+        public float damage;
         
         public float timeToActNext = 0f;
         public UnityAction<ThinkingPlaceable, ThinkingPlaceable, float> OnDealDamage;
@@ -31,22 +30,22 @@ namespace UnityRoyale
         {
             target = t;
             t.OnDie += TargetIsDead;
-            targetPosition = target.transform.position;
         }
 
-        public bool IsIdle()
+        public virtual void StartAttack()
         {
-            return state == States.Idle;
+            state = States.Attacking;
+            DealBlow();
         }
 
-        public bool IsDead()
+        public virtual void DealBlow()
         {
-            return state == States.Dead;
+            lastBlowTime = Time.time;
         }
 
-        public virtual void UpdateLoop()
+        public virtual void Seek()
         {
-
+            state = States.Seeking;
         }
 
         protected void TargetIsDead(Placeable p)
@@ -55,19 +54,13 @@ namespace UnityRoyale
             state = States.Idle;
             
             target.OnDie -= TargetIsDead;
-            target = null;
 
-            timeToActNext = lastAttackTime + attackRatio;
+            timeToActNext = lastBlowTime + attackRatio;
         }
         
-        protected bool IsTargetInRange()
+        public bool IsTargetInRange()
         {
             return (transform.position-target.transform.position).sqrMagnitude <= attackRange*attackRange;
-        }
-
-        protected bool DidTargetMove()
-        {
-            return targetPosition == target.transform.position;
         }
 
         public void SufferDamage(float amount)
