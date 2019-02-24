@@ -7,7 +7,7 @@ namespace UnityRoyale
 {
     public class ThinkingPlaceable : Placeable
     {
-        public States state = States.Dragged;
+        [HideInInspector] public States state = States.Dragged;
         public enum States
         {
             Dragged, //when the player is dragging it as a card on the play field
@@ -16,15 +16,33 @@ namespace UnityRoyale
             Attacking, //attack cycle animation, not moving
             Dead, //dead animation, before removal from play field
         }
-        public ThinkingPlaceable target;
-        public float hitPoints;
-        public float attackRange;
-        public float attackRatio;
-        public float lastBlowTime;
-        public float damage;
+
+        [HideInInspector] public AttackType attackType;
+        public enum AttackType
+        {
+            Melee,
+            Ranged,
+        }
+
+        [HideInInspector] public ThinkingPlaceable target;
+        [HideInInspector] public HealthBar healthBar;
+
+        [HideInInspector] public float hitPoints;
+        [HideInInspector] public float attackRange;
+        [HideInInspector] public float attackRatio;
+        [HideInInspector] public float lastBlowTime = -1000f;
+        [HideInInspector] public float damage;
         
-        public float timeToActNext = 0f;
-        public UnityAction<ThinkingPlaceable, ThinkingPlaceable, float> OnDealDamage;
+        [HideInInspector] public float timeToActNext = 0f;
+
+		//Inspector references
+		[Header("Projectile for Ranged")]
+		public GameObject projectilePrefab;
+		public Transform projectileSpawnPoint;
+
+		private Projectile projectile;
+
+		public UnityAction<ThinkingPlaceable> OnDealDamage, OnProjectileFired;
 
         public virtual void SetTarget(ThinkingPlaceable t)
         {
@@ -35,13 +53,24 @@ namespace UnityRoyale
         public virtual void StartAttack()
         {
             state = States.Attacking;
-            DealBlow();
         }
 
         public virtual void DealBlow()
         {
             lastBlowTime = Time.time;
         }
+
+		//Animation event hooks
+		public void DealDamage()
+        {
+			if(OnDealDamage != null)
+				OnDealDamage(this);
+		}
+		public void FireProjectile()
+        {
+			if(OnProjectileFired != null)
+				OnProjectileFired(this);
+		}
 
         public virtual void Seek()
         {
@@ -50,7 +79,7 @@ namespace UnityRoyale
 
         protected void TargetIsDead(Placeable p)
         {
-            Debug.Log("My target " + p.name + " is dead", gameObject);
+            //Debug.Log("My target " + p.name + " is dead", gameObject);
             state = States.Idle;
             
             target.OnDie -= TargetIsDead;
@@ -63,15 +92,23 @@ namespace UnityRoyale
             return (transform.position-target.transform.position).sqrMagnitude <= attackRange*attackRange;
         }
 
-        public void SufferDamage(float amount)
+        public float SufferDamage(float amount)
         {
             hitPoints -= amount;
-            Debug.Log("Suffering damage, new health: " + hitPoints, gameObject);
-            if(hitPoints <= 0f)
+            //Debug.Log("Suffering damage, new health: " + hitPoints, gameObject);
+            if(state != States.Dead
+				&& hitPoints <= 0f)
             {
                 Die();
             }
+
+            return hitPoints;
         }
+
+		public virtual void Stop()
+		{
+			state = States.Idle;
+		}
 
         protected virtual void Die()
         {

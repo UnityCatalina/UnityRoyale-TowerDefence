@@ -80,6 +80,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2166428451308690947}
   - component: {fileID: 7797893445555691319}
+  - component: {fileID: 6485485287881123351}
   m_Layer: 0
   m_Name: Archer Tower Red
   m_TagString: Untagged
@@ -111,7 +112,7 @@ PlayableDirector:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3538807561037368355}
-  m_Enabled: 0
+  m_Enabled: 1
   serializedVersion: 3
   m_PlayableAsset: {fileID: 11400000, guid: 9137d933e94f8134ab7ab0c67689c261, type: 2}
   m_InitialState: 1
@@ -135,6 +136,33 @@ PlayableDirector:
     value: {fileID: 854000366625836521}
   m_ExposedReferences:
     m_References: []
+--- !u!114 &6485485287881123351
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3538807561037368355}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 90986e7e856564d709980ae88a8b85eb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pType: 0
+  faction: 0
+  targetType: 0
+  state: 0
+  attackType: 0
+  target: {fileID: 0}
+  healthBar: {fileID: 0}
+  hitPoints: 0
+  attackRange: 0
+  attackRatio: 0
+  lastBlowTime: -1000
+  damage: 0
+  timeToActNext: 0
+  projectilePrefab: {fileID: 0}
+  projectileSpawnPoint: {fileID: 0}
 --- !u!1001 &177077207920626225
 PrefabInstance:
   m_ObjectHideFlags: 0

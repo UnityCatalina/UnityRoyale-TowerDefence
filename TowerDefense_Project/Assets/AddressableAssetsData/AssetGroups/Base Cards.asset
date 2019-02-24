@@ -18,26 +18,38 @@ MonoBehaviour:
   m_GUID: 89f69edb07f484e64a54ee0e7b2d8a53
   m_SerializeEntries:
   - m_GUID: 45c451515fa5541a78a078d0fd1da57f
-    m_Address: RedRockWarrior
+    m_Address: RockWarrior
     m_ReadOnly: 0
-    m_SerializedLabels:
-    - Base
+    m_SerializedLabels: []
   - m_GUID: 57f207f6f745a403e92e5a37a755ec84
-    m_Address: RedTwoWarriors
+    m_Address: TwoWarriors
     m_ReadOnly: 0
     m_SerializedLabels:
     - Elite
+    - Base
+  - m_GUID: d7b5bb0137f614f22a35489614ddbbe8
+    m_Address: Mage
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Base
+    - AI Test
+  - m_GUID: d7c71ca08e6ff4e9fa7e86dc215ccaed
+    m_Address: Archers
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Base
+    - AI Test
   - m_GUID: e27eea34851b44110a10d2b40b6c07c2
     m_Address: Rock
     m_ReadOnly: 0
     m_SerializedLabels:
-    - AI Test
     - Base
   - m_GUID: f73961e850ac543fcb00d172e912b492
-    m_Address: RedWarrior
+    m_Address: Warrior
     m_ReadOnly: 0
     m_SerializedLabels:
     - Base
+    - AI Test
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 62fd5e501abef4d188f123698eca5c92, type: 2}
   m_SchemaSet:

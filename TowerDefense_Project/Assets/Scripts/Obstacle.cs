@@ -7,7 +7,7 @@ namespace UnityRoyale
     //A static, non-moving obstacle that disappears on its own after a while
     public class Obstacle : Placeable
     {
-        public float timeToRemoval;
+        [HideInInspector] public float timeToRemoval;
 
         private void Awake()
         {

@@ -13,6 +13,15 @@ MonoBehaviour:
   m_Name: SmallRock
   m_EditorClassIdentifier: 
   pType: 1
-  targetType: 2
   associatedPrefab: {fileID: 3299912398919571464, guid: c69b8651000d54beba2977ba82be78e9,
     type: 3}
+  alternatePrefab: {fileID: 0}
+  attackType: 0
+  targetType: 2
+  attackRatio: 0
+  damagePerAttack: 0
+  attackRange: 0
+  hitPoints: 0
+  speed: 0
+  lifeTime: 5
+  damagePerSecond: 0

@@ -14,11 +14,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pType: 4
   associatedPrefab: {fileID: 0}
+  alternatePrefab: {fileID: 0}
+  attackType: 0
   targetType: 1
   attackRatio: 1
   damagePerAttack: 5
   attackRange: 3
-  hitPoints: 100
+  hitPoints: 15
   speed: 0
   lifeTime: 0
   damagePerSecond: 0

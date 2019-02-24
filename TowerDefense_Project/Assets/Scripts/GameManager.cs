@@ -12,15 +12,17 @@ namespace UnityRoyale
 		public GameObject playersCastle, opponentCastle;
         public PlaceableData castlePData;
 
-        [Header("Managers")]
         private CardManager cardManager;
         private CPUOpponent CPUOpponent;
         private InputManager inputManager;
+		private UIManager UIManager;
+		private CinematicsManager cinematicsManager;
 
         private List<ThinkingPlaceable> playerUnits, opponentUnits;
         private List<ThinkingPlaceable> playerBuildings, opponentBuildings;
         private List<ThinkingPlaceable> allPlayers, allOpponents; //contains both Buildings and Units
-		private List<ThinkingPlaceable> allThinkinPlaceables;
+		private List<ThinkingPlaceable> allThinkingPlaceables;
+		private List<Projectile> allProjectiles;
         private bool gameOver = false;
         private bool updateAllPlaceables = false; //used to force an update of all AIBrains in the Update loop
         private const float THINKING_DELAY = 2f;
@@ -30,6 +32,8 @@ namespace UnityRoyale
             cardManager = GetComponent<CardManager>();
             CPUOpponent = GetComponent<CPUOpponent>();
             inputManager = GetComponent<InputManager>();
+			cinematicsManager = GetComponent<CinematicsManager>();
+			UIManager = GetComponent<UIManager>();
 
             //listeners on other managers
             cardManager.OnCardUsed += UseCard;
@@ -42,15 +46,16 @@ namespace UnityRoyale
             opponentBuildings = new List<ThinkingPlaceable>();
             allPlayers = new List<ThinkingPlaceable>();
             allOpponents = new List<ThinkingPlaceable>();
-			allThinkinPlaceables = new List<ThinkingPlaceable>();
-
-			//Insert castles into lists
-			SetupPlaceable(playersCastle, castlePData, Placeable.Faction.Player);
-            SetupPlaceable(opponentCastle, castlePData, Placeable.Faction.Opponent);
+			allThinkingPlaceables = new List<ThinkingPlaceable>();
+			allProjectiles = new List<Projectile>();
         }
 
         private void Start()
         {
+			//Insert castles into lists
+			SetupPlaceable(playersCastle, castlePData, Placeable.Faction.Player);
+            SetupPlaceable(opponentCastle, castlePData, Placeable.Faction.Opponent);
+
 			cardManager.LoadDeck();
             CPUOpponent.LoadDeck();
         }
@@ -64,9 +69,9 @@ namespace UnityRoyale
             ThinkingPlaceable targetToPass; //ref
 			ThinkingPlaceable p; //ref
 
-			for(int pN=0; pN<allThinkinPlaceables.Count; pN++)
+			for(int pN=0; pN<allThinkingPlaceables.Count; pN++)
             {
-                p = allThinkinPlaceables[pN];
+                p = allThinkingPlaceables[pN];
 
                 if(updateAllPlaceables)
                     p.state = ThinkingPlaceable.States.Idle; //forces the assignment of a target in the switch below
@@ -92,6 +97,7 @@ namespace UnityRoyale
 							p.StartAttack();
 						}
                         break;
+                        
 
 					case ThinkingPlaceable.States.Attacking:
 						if(p.IsTargetInRange())
@@ -99,12 +105,34 @@ namespace UnityRoyale
 							if(Time.time >= p.lastBlowTime + p.attackRatio)
 							{
 								p.DealBlow();
-								p.target.SufferDamage(p.damage);
+								//Animation will produce the damage, calling animation events OnDealDamage and OnProjectileFired. See ThinkingPlaceable
 							}
 						}
 						break;
+
+					case ThinkingPlaceable.States.Dead:
+
+						break;
                 }
             }
+
+			Projectile currProjectile;
+			float progressToTarget;
+			for(int prjN=0; prjN<allProjectiles.Count; prjN++)
+            {
+				currProjectile = allProjectiles[prjN];
+				progressToTarget = currProjectile.Move();
+				if(progressToTarget >= 1f)
+				{
+					if(currProjectile.target.state != ThinkingPlaceable.States.Dead) //target might be dead already as this projectile is flying
+					{
+						float newHP = currProjectile.target.SufferDamage(currProjectile.damage);
+						currProjectile.target.healthBar.SetHealth(newHP);
+					}
+					Destroy(currProjectile.gameObject);
+					allProjectiles.RemoveAt(prjN);
+				}
+			}
 
             updateAllPlaceables = false; //is set to true by UseCard()
         }
@@ -149,7 +177,9 @@ namespace UnityRoyale
             {
                 PlaceableData pDataRef = cardData.placeablesData[pNum];
                 Quaternion rot = (pFaction == Placeable.Faction.Player) ? Quaternion.identity : Quaternion.Euler(0f, 180f, 0f);
-                GameObject newPlaceableGO = Instantiate<GameObject>(pDataRef.associatedPrefab, position + cardData.relativeOffsets[pNum], rot);
+                //Prefab to spawn is the associatedPrefab if it's the Player faction, otherwise it's alternatePrefab. But if alternatePrefab is null, then first one is taken
+                GameObject prefabToSpawn = (pFaction == Placeable.Faction.Player) ? pDataRef.associatedPrefab : ((pDataRef.alternatePrefab == null) ? pDataRef.associatedPrefab : pDataRef.alternatePrefab);
+                GameObject newPlaceableGO = Instantiate<GameObject>(prefabToSpawn, position + cardData.relativeOffsets[pNum], rot);
                 
                 SetupPlaceable(newPlaceableGO, pDataRef, pFaction);
             }
@@ -165,16 +195,22 @@ namespace UnityRoyale
                 switch(pDataRef.pType)
                 {
                     case Placeable.PlaceableType.Unit:
-                        Unit uScript = go.AddComponent<Unit>();
+                        Unit uScript = go.GetComponent<Unit>();
                         uScript.Activate(pFaction, pDataRef); //enables NavMeshAgent
+						uScript.OnDealDamage += OnPlaceableDealtDamage;
+						uScript.OnProjectileFired += OnProjectileFired;
                         AddPlaceableToList(uScript); //add the Unit to the appropriate list
+                        UIManager.AddHealthUI(uScript);
                         break;
 
                     case Placeable.PlaceableType.Building:
                     case Placeable.PlaceableType.Castle:
-                        Building bScript = go.AddComponent<Building>();
+                        Building bScript = go.GetComponent<Building>();
                         bScript.Activate(pFaction, pDataRef);
+						bScript.OnDealDamage += OnPlaceableDealtDamage;
+						bScript.OnProjectileFired += OnProjectileFired;
                         AddPlaceableToList(bScript); //add the Building to the appropriate list
+                        UIManager.AddHealthUI(bScript);
 
                         //special case for castles
                         if(pDataRef.pType == Placeable.PlaceableType.Castle)
@@ -186,7 +222,7 @@ namespace UnityRoyale
                         break;
 
                     case Placeable.PlaceableType.Obstacle:
-                        Obstacle oScript = go.AddComponent<Obstacle>();
+                        Obstacle oScript = go.GetComponent<Obstacle>();
                         oScript.Activate(pDataRef);
                         navMesh.BuildNavMesh(); //rebake the Navmesh
                         break;
@@ -201,12 +237,49 @@ namespace UnityRoyale
                 go.GetComponent<Placeable>().OnDie += OnPlaceableDead;
         }
 
-		private void OnCastleDead(Placeable p)
+		private void OnProjectileFired(ThinkingPlaceable p)
+		{
+			Vector3 adjTargetPos = p.target.transform.position;
+			adjTargetPos.y = 1.5f;
+			Quaternion rot = Quaternion.LookRotation(adjTargetPos-p.projectileSpawnPoint.position);
+
+			Projectile prj = Instantiate<GameObject>(p.projectilePrefab, p.projectileSpawnPoint.position, rot).GetComponent<Projectile>();
+			prj.target = p.target;
+			prj.damage = p.damage;
+			allProjectiles.Add(prj);
+		}
+
+		private void OnPlaceableDealtDamage(ThinkingPlaceable p)
+		{
+			if(p.target.state != ThinkingPlaceable.States.Dead)
+			{
+				float newHealth = p.target.SufferDamage(p.damage);
+				p.target.healthBar.SetHealth(newHealth);
+			}
+		}
+
+		private void OnCastleDead(Placeable c)
 		{
 			//TODO: implement better game over
             Debug.Log("Castle destroyed");
-            p.OnDie -= OnCastleDead;
+			cinematicsManager.PlayCollapseCutscene(c.faction);
+            c.OnDie -= OnCastleDead;
             gameOver = true; //stops the thinking loop
+
+			//stop all the ThinkingPlaceables		
+			ThinkingPlaceable thkPl;
+			for(int pN=0; pN<allThinkingPlaceables.Count; pN++)
+            {
+				thkPl = allThinkingPlaceables[pN];
+				if(thkPl.state != ThinkingPlaceable.States.Dead)
+				{
+					thkPl.Stop();
+					thkPl.transform.LookAt(c.transform.position);
+					UIManager.RemoveHealthUI(thkPl);
+				}
+			}
+
+			CPUOpponent.StopActing();
 		}
 
         private void OnPlaceableDead(Placeable p)
@@ -216,18 +289,24 @@ namespace UnityRoyale
             switch(p.pType)
             {
                 case Placeable.PlaceableType.Unit:
-                    //remove Unit from the appropriate list
-                    RemovePlaceableFromList((Unit)p);
+					Unit u = (Unit)p;
+                    RemovePlaceableFromList(u);
+					u.OnDealDamage -= OnPlaceableDealtDamage;
+					u.OnProjectileFired -= OnProjectileFired;
+					UIManager.RemoveHealthUI(u);
                     break;
 
                 case Placeable.PlaceableType.Building:
-                    //remove Building from the appropriate list
-                    RemovePlaceableFromList((Building)p);
-                    navMesh.BuildNavMesh();
+					Building b = (Building)p;
+                    RemovePlaceableFromList(b);
+					UIManager.RemoveHealthUI(b);
+					b.OnDealDamage -= OnPlaceableDealtDamage;
+					b.OnProjectileFired -= OnProjectileFired;
+                    StartCoroutine(RebuildNavmesh());
                     break;
 
                 case Placeable.PlaceableType.Obstacle:
-                    navMesh.BuildNavMesh();
+                    StartCoroutine(RebuildNavmesh());
                     break;
 
                 case Placeable.PlaceableType.Spell:
@@ -236,9 +315,17 @@ namespace UnityRoyale
             }
         }
 
+        private IEnumerator RebuildNavmesh()
+        {
+            yield return new WaitForEndOfFrame();
+
+            navMesh.BuildNavMesh();
+            //FIX: dragged obstacles are included in the navmesh when it's baked
+        }
+
         private void AddPlaceableToList(ThinkingPlaceable p)
         {
-			allThinkinPlaceables.Add(p);
+			allThinkingPlaceables.Add(p);
 
 			if(p.faction == Placeable.Faction.Player)
             {
@@ -266,7 +353,7 @@ namespace UnityRoyale
 
         private void RemovePlaceableFromList(ThinkingPlaceable p)
         {
-			allThinkinPlaceables.Remove(p);
+			allThinkingPlaceables.Remove(p);
 
 			if(p.faction == Placeable.Faction.Player)
             {

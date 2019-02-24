@@ -15,11 +15,13 @@ MonoBehaviour:
   pType: 0
   associatedPrefab: {fileID: 5701704621631426976, guid: 36e93c435d1648a4c86d516057a9cbe2,
     type: 3}
+  alternatePrefab: {fileID: 0}
+  attackType: 0
   targetType: 0
   attackRatio: 2
-  damagePerAttack: 4
-  attackRange: 3
-  hitPoints: 10
-  speed: 1
+  damagePerAttack: 6
+  attackRange: 2.5
+  hitPoints: 18
+  speed: 1.5
   lifeTime: 5
   damagePerSecond: 1
