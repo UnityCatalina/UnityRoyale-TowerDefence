@@ -7,6 +7,11 @@
 Recordings/
 Unity Recorder/
 Unity Recorder.meta
+TowerDefense_Project/Packages/com.unity.render-pipelines.core/
+TowerDefense_Project/Packages/com.unity.render-pipelines.lightweight/
+TowerDefense_Project/Packages/com.unity.shadergraph/
+TowerDefense_Project/ServerData/
+TowerDefense_Project/Assets/StreamingAssets/
 
 
 # =========================

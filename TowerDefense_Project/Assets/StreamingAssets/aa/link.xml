@@ -33,11 +33,11 @@
     <type fullname="UnityEditor.MonoScript" preserve="all" />
   </assembly>
   <assembly fullname="Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
+    <type fullname="UnityRoyale.Projectile" preserve="all" />
     <type fullname="UnityRoyale.Unit" preserve="all" />
     <type fullname="UnityRoyale.Obstacle" preserve="all" />
     <type fullname="UnityRoyale.PlaceableData" preserve="all" />
     <type fullname="UnityRoyale.CardData" preserve="all" />
-    <type fullname="UnityRoyale.Projectile" preserve="all" />
   </assembly>
   <assembly fullname="UnityEngine.AIModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
     <type fullname="UnityEngine.AI.NavMeshAgent" preserve="all" />

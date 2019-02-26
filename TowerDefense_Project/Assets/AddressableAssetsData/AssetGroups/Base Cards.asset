@@ -32,13 +32,11 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels:
     - Base
-    - AI Test
   - m_GUID: d7c71ca08e6ff4e9fa7e86dc215ccaed
     m_Address: Archers
     m_ReadOnly: 0
     m_SerializedLabels:
     - Base
-    - AI Test
   - m_GUID: e27eea34851b44110a10d2b40b6c07c2
     m_Address: Rock
     m_ReadOnly: 0
@@ -49,7 +47,6 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels:
     - Base
-    - AI Test
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 62fd5e501abef4d188f123698eca5c92, type: 2}
   m_SchemaSet:
