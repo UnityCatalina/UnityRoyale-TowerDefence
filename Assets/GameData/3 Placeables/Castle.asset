@@ -20,7 +20,7 @@ MonoBehaviour:
   attackRatio: 1
   damagePerAttack: 5
   attackRange: 3
-  hitPoints: 4000
+  hitPoints: 30
   speed: 0
   lifeTime: 0
   damagePerSecond: 0
