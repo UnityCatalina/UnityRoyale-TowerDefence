@@ -1,0 +1,28 @@
+{
+    "name": "Unity.RenderPipelines.Lightweight.Editor",
+    "references": [
+        "Unity.RenderPipelines.Lightweight.Runtime",
+        "Unity.Postprocessing.Runtime",
+        "Unity.Postprocessing.Editor",
+        "Unity.RenderPipelines.Core.Runtime",
+        "Unity.RenderPipelines.Core.Editor",
+        "Unity.ShaderGraph.Editor"
+    ],
+    "optionalUnityReferences": [],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": true,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [
+        {
+            "name": "com.unity.render-pipelines.lightweight",
+            "expression": "6.0.0",
+            "define": "LWRP_6_0_0_OR_NEWER"
+        }
+    ]
+}
