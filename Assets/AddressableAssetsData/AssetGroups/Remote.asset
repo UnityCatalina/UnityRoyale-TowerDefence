@@ -20,25 +20,21 @@ MonoBehaviour:
   - m_GUID: 3c5eb71ff2e974ce88c45317fe5ee720
     m_Address: WarriorInnocuous
     m_ReadOnly: 0
-    m_SerializedLabels:
-    - Base
+    m_SerializedLabels: []
   - m_GUID: 45c451515fa5541a78a078d0fd1da57f
     m_Address: RockWarrior
     m_ReadOnly: 0
     m_SerializedLabels:
     - Elite
-    - Base
   - m_GUID: 57f207f6f745a403e92e5a37a755ec84
     m_Address: TwoWarriors
     m_ReadOnly: 0
     m_SerializedLabels:
     - HalloweenEvent
-    - Base
   - m_GUID: e27eea34851b44110a10d2b40b6c07c2
     m_Address: Rock
     m_ReadOnly: 0
-    m_SerializedLabels:
-    - Base
+    m_SerializedLabels: []
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 62fd5e501abef4d188f123698eca5c92, type: 2}
   m_SchemaSet:

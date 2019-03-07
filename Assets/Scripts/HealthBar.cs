@@ -25,7 +25,7 @@ namespace UnityRoyale
 
             bar.GetComponent<Image>().color = (p.faction == Placeable.Faction.Player) ? red : blue;
             
-            wholeWidget.transform.localPosition = new Vector3(0f, (p.pType == Placeable.PlaceableType.Building) ? 4.5f : 2f, 0f); //set the vertical position based on the type of Placeable
+            wholeWidget.transform.localPosition = new Vector3(0f, (p.pType == Placeable.PlaceableType.Building) ? 6f : 2f, 0f); //set the vertical position based on the type of Placeable
             wholeWidget.SetActive(false);
         }
 
