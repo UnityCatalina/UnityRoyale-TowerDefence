@@ -32,7 +32,7 @@ namespace UnityRoyale
             cardManager = GetComponent<CardManager>();
             CPUOpponent = GetComponent<CPUOpponent>();
             inputManager = GetComponent<InputManager>();
-			cinematicsManager = GetComponent<CinematicsManager>();
+			cinematicsManager = GetComponentInChildren<CinematicsManager>();
 			UIManager = GetComponent<UIManager>();
 
             //listeners on other managers
@@ -59,6 +59,12 @@ namespace UnityRoyale
 			cardManager.LoadDeck();
             CPUOpponent.LoadDeck();
         }
+
+		//called by the intro cutscene
+		public void StartMatch()
+		{
+			CPUOpponent.StartActing();
+		}
 
         //the Update loop pings all the ThinkingPlaceables in the scene, and makes them act
         private void Update()
@@ -280,6 +286,12 @@ namespace UnityRoyale
 			}
 
 			CPUOpponent.StopActing();
+		}
+
+		public void OnEndGameCutsceneOver()
+		{
+			Debug.Log("Match is over");
+			UIManager.ShowGameOverUI();
 		}
 
         private void OnPlaceableDead(Placeable p)

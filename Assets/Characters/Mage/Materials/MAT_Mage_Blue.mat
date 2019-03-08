@@ -47,6 +47,10 @@ Material:
         m_Texture: {fileID: 2800000, guid: d85b3d819233c5b48b0e299ebbc935c0, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _Emission:
+        m_Texture: {fileID: 2800000, guid: 44de917a634f59e45af3595d39b8b2df, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _MainTex:
         m_Texture: {fileID: 2800000, guid: da4fdaee7ff467d41912dd75ea9247ac, type: 3}
         m_Scale: {x: 1, y: 1}
@@ -79,7 +83,9 @@ Material:
     - Vector1_C83CA6B1: 1
     - Vector1_E2E3DEB3: 1
     - _EffectStart: 0
+    - _EmMult: 1
     m_Colors:
     - Color_7A1F3D95: {r: 0, g: 0.061222974, b: 0.735849, a: 0}
     - Color_B07BFB3F: {r: 1.342683, g: 0.29705372, b: 2.519016, a: 0}
+    - _EmColour: {r: 2.0078433, g: 9.913726, b: 23.968628, a: 0}
     - _TexTiling: {r: 1, g: 1, b: 0, a: 0}

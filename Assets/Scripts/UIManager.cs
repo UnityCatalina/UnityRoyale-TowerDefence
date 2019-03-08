@@ -7,6 +7,7 @@ namespace UnityRoyale
 	public class UIManager : MonoBehaviour
 	{
         public GameObject healthBarPrefab;
+		public GameObject gameOverUI;
 
 		private List<HealthBar> healthBars;
         private Transform healthBarContainer;
@@ -31,6 +32,16 @@ namespace UnityRoyale
 			healthBars.Remove(p.healthBar);
 			
 			Destroy(p.healthBar.gameObject);
+		}
+
+		public void ShowGameOverUI()
+		{
+			gameOverUI.SetActive(true);
+		}
+
+		public void OnRetryButton()
+		{
+			UnityEngine.SceneManagement.SceneManager.LoadScene(UnityEngine.SceneManagement.SceneManager.GetActiveScene().name);
 		}
 
 		private void LateUpdate()

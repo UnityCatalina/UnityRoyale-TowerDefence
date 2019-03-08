@@ -55,11 +55,17 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1107439388053995260, guid: ddbc89a2e5731354497399c2803d9354,
+    - target: {fileID: 3368897962327348152, guid: ddbc89a2e5731354497399c2803d9354,
         type: 3}
-      propertyPath: attackSource
+      propertyPath: projectilePrefab
       value: 
-      objectReference: {fileID: 8584991783908798098}
+      objectReference: {fileID: 2348266241764958831, guid: 208c852a323ae3d44998f5b371b37ce4,
+        type: 3}
+    - target: {fileID: 3368897962327348152, guid: ddbc89a2e5731354497399c2803d9354,
+        type: 3}
+      propertyPath: projectileSpawnPoint
+      value: 
+      objectReference: {fileID: 8584991783229962960}
     - target: {fileID: 677874271, guid: ddbc89a2e5731354497399c2803d9354, type: 3}
       propertyPath: m_Bones.Array.data[0]
       value: 
@@ -382,17 +388,26 @@ PrefabInstance:
       propertyPath: ColorModule.gradient.maxGradient.key1.b
       value: 0.7894781
       objectReference: {fileID: 0}
-    - target: {fileID: 3368897962327348152, guid: ddbc89a2e5731354497399c2803d9354,
+    - target: {fileID: 5745771561536038601, guid: ddbc89a2e5731354497399c2803d9354,
         type: 3}
-      propertyPath: projectilePrefab
+      propertyPath: InitialModule.startColor.maxColor.r
+      value: 0.4669811
+      objectReference: {fileID: 0}
+    - target: {fileID: 5745771561536038601, guid: ddbc89a2e5731354497399c2803d9354,
+        type: 3}
+      propertyPath: InitialModule.startColor.maxColor.g
+      value: 0.83550024
+      objectReference: {fileID: 0}
+    - target: {fileID: 5745771561536038601, guid: ddbc89a2e5731354497399c2803d9354,
+        type: 3}
+      propertyPath: InitialModule.startColor.maxColor.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1107439388053995260, guid: ddbc89a2e5731354497399c2803d9354,
+        type: 3}
+      propertyPath: attackSource
       value: 
-      objectReference: {fileID: 2348266241764958831, guid: 208c852a323ae3d44998f5b371b37ce4,
-        type: 3}
-    - target: {fileID: 3368897962327348152, guid: ddbc89a2e5731354497399c2803d9354,
-        type: 3}
-      propertyPath: projectileSpawnPoint
-      value: 
-      objectReference: {fileID: 8584991783229962960}
+      objectReference: {fileID: 8584991783908798098}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ddbc89a2e5731354497399c2803d9354, type: 3}
 --- !u!4 &8584991784184851166 stripped
