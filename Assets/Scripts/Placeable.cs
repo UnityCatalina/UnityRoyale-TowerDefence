@@ -8,7 +8,8 @@ namespace UnityRoyale
     //Base class for all objects that can be placed on the play area: units, obstacles, structures, etc.
     public class Placeable : MonoBehaviour
     {
-        [HideInInspector] public PlaceableType pType;
+        public PlaceableType pType;
+		
         [HideInInspector] public Faction faction;
         [HideInInspector] public PlaceableTarget targetType; //TODO: move to ThinkingPlaceable?
 

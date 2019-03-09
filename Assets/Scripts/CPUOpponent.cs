@@ -26,9 +26,16 @@ namespace UnityRoyale
 		private void DeckLoaded()
 		{
 			Debug.Log("AI deck loaded");
+
+			//StartActing();
         }
 
-        public void StartActing()
+		public void StartActing()
+		{
+			Invoke("Bridge", 0f);
+		}
+
+        private void Bridge()
         {
             act = true;
             actingCoroutine = StartCoroutine(CreateRandomCards());
@@ -46,11 +53,9 @@ namespace UnityRoyale
             while(act)
             {
                 if(OnCardUsed != null)
-                {
                     OnCardUsed(aiDeck.GetNextCardFromDeck(), Vector3.forward*3f, Placeable.Faction.Opponent);
-                }
-
-			    yield return new WaitForSeconds(10f);
+				
+			    yield return new WaitForSeconds(5f);
             }
 		}
 	}

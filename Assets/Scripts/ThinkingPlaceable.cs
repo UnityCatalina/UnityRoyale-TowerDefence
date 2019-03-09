@@ -113,7 +113,8 @@ namespace UnityRoyale
         protected virtual void Die()
         {
             state = States.Dead;
-            OnDie(this);
+			if(OnDie != null)
+            	OnDie(this);
         }
     }
 }

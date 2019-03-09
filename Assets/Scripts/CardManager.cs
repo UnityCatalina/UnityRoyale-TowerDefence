@@ -13,6 +13,8 @@ namespace UnityRoyale
         public LayerMask playingFieldMask;
         public GameObject cardPrefab;
         public DeckData playersDeck;
+		public MeshRenderer forbiddenAreaRenderer;
+		
         public UnityAction<CardData, Vector3, Placeable.Faction> OnCardUsed;
         
         [Header("UI Elements")]
@@ -96,6 +98,7 @@ namespace UnityRoyale
         private void CardTapped(int cardId)
         {
             cards[cardId].GetComponent<RectTransform>().SetAsLastSibling();
+			forbiddenAreaRenderer.enabled = true;
         }
 
         private void CardDragged(int cardId, Vector2 dragAmount)
@@ -169,6 +172,8 @@ namespace UnityRoyale
                 cards[cardId].GetComponent<RectTransform>().DOAnchorPos(new Vector2(220f * (cardId+1), 0f),
                                                                         .2f).SetEase(Ease.OutQuad);
             }
+
+			forbiddenAreaRenderer.enabled = false;
         }
 
         //happens when the card is put down on the playing field, and while dragging (when moving out of the play field)

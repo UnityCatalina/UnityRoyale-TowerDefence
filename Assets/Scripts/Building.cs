@@ -12,13 +12,9 @@ namespace UnityRoyale
 		public PlayableDirector constructionTimeline;
 		public PlayableDirector destructionTimeline;
 
-        private void Awake()
-        {
-            pType = PlaceableType.Building;
-        }
-
         public void Activate(Faction pFaction, PlaceableData pData)
         {
+			pType = pData.pType;
             faction = pFaction;
             hitPoints = pData.hitPoints;
             targetType = pData.targetType;
@@ -30,7 +26,7 @@ namespace UnityRoyale
         {
             base.Die();
 
-            Debug.Log("Building is dead", gameObject);
+            //Debug.Log("Building is dead", gameObject);
 			destructionTimeline.Play();
         }
     }

@@ -26,13 +26,11 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels:
     - Elite
-    - Base
   - m_GUID: 57f207f6f745a403e92e5a37a755ec84
     m_Address: TwoWarriors
     m_ReadOnly: 0
     m_SerializedLabels:
     - HalloweenEvent
-    - Base
   - m_GUID: e27eea34851b44110a10d2b40b6c07c2
     m_Address: Rock
     m_ReadOnly: 0

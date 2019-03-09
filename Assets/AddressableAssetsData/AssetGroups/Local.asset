@@ -26,8 +26,8 @@ MonoBehaviour:
     m_Address: Archers
     m_ReadOnly: 0
     m_SerializedLabels:
-    - Base
     - Elite
+    - Base
   - m_GUID: f73961e850ac543fcb00d172e912b492
     m_Address: Warrior
     m_ReadOnly: 0

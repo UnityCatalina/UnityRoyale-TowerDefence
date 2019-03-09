@@ -11,6 +11,7 @@ namespace UnityRoyale
         public NavMeshSurface navMesh;
 		public GameObject playersCastle, opponentCastle;
         public PlaceableData castlePData;
+		public ParticlePool appearEffectPool;
 
         private CardManager cardManager;
         private CPUOpponent CPUOpponent;
@@ -117,7 +118,7 @@ namespace UnityRoyale
 						break;
 
 					case ThinkingPlaceable.States.Dead:
-
+						Debug.LogError("A dead ThinkingPlaceable shouldn't be in this loop");
 						break;
                 }
             }
@@ -188,6 +189,8 @@ namespace UnityRoyale
                 GameObject newPlaceableGO = Instantiate<GameObject>(prefabToSpawn, position + cardData.relativeOffsets[pNum], rot);
                 
                 SetupPlaceable(newPlaceableGO, pDataRef, pFaction);
+
+				appearEffectPool.UseParticles(position + cardData.relativeOffsets[pNum]);
             }
 
             updateAllPlaceables = true; //will force all AIBrains to update next time the Update loop is run
@@ -266,8 +269,6 @@ namespace UnityRoyale
 
 		private void OnCastleDead(Placeable c)
 		{
-			//TODO: implement better game over
-            Debug.Log("Castle destroyed");
 			cinematicsManager.PlayCollapseCutscene(c.faction);
             c.OnDie -= OnCastleDead;
             gameOver = true; //stops the thinking loop
@@ -290,7 +291,6 @@ namespace UnityRoyale
 
 		public void OnEndGameCutsceneOver()
 		{
-			Debug.Log("Match is over");
 			UIManager.ShowGameOverUI();
 		}
 
@@ -306,15 +306,21 @@ namespace UnityRoyale
 					u.OnDealDamage -= OnPlaceableDealtDamage;
 					u.OnProjectileFired -= OnProjectileFired;
 					UIManager.RemoveHealthUI(u);
+					StartCoroutine(Dispose(u));
                     break;
 
                 case Placeable.PlaceableType.Building:
+                case Placeable.PlaceableType.Castle:
 					Building b = (Building)p;
                     RemovePlaceableFromList(b);
 					UIManager.RemoveHealthUI(b);
 					b.OnDealDamage -= OnPlaceableDealtDamage;
 					b.OnProjectileFired -= OnProjectileFired;
-                    StartCoroutine(RebuildNavmesh());
+                    StartCoroutine(RebuildNavmesh()); //need to fix for normal buildings
+					
+					//we don't dispose of the Castle
+					if(p.pType != Placeable.PlaceableType.Castle)
+						StartCoroutine(Dispose(b));
                     break;
 
                 case Placeable.PlaceableType.Obstacle:
@@ -326,6 +332,13 @@ namespace UnityRoyale
                     break;
             }
         }
+
+		private IEnumerator Dispose(ThinkingPlaceable p)
+		{
+			yield return new WaitForSeconds(3f);
+
+			Destroy(p.gameObject);
+		}
 
         private IEnumerator RebuildNavmesh()
         {
