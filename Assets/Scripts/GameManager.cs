@@ -3,11 +3,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.AddressableAssets;
 
 namespace UnityRoyale
 {
     public class GameManager : MonoBehaviour
     {
+		[Header("Settings")]
+		public bool autoStart = false;
+
+		[Header("Public References")]
         public NavMeshSurface navMesh;
 		public GameObject playersCastle, opponentCastle;
         public PlaceableData castlePData;
@@ -59,6 +64,9 @@ namespace UnityRoyale
 
 			cardManager.LoadDeck();
             CPUOpponent.LoadDeck();
+
+			if(autoStart)
+				StartMatch();
         }
 
 		//called by the intro cutscene
@@ -178,7 +186,7 @@ namespace UnityRoyale
             return targetFound;
         }
 
-        private void UseCard(CardData cardData, Vector3 position, Placeable.Faction pFaction)
+        public void UseCard(CardData cardData, Vector3 position, Placeable.Faction pFaction)
         {
             for(int pNum=0; pNum<cardData.placeablesData.Length; pNum++)
             {

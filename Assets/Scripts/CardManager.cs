@@ -62,7 +62,7 @@ namespace UnityRoyale
 
             backupCardTransform.SetParent(cardsDashboard, true);
             //move and scale into position
-            backupCardTransform.DOAnchorPos(new Vector2(220f * (position+1), 0f),
+            backupCardTransform.DOAnchorPos(new Vector2(210f * (position+1) + 20f, 0f),
                                             .2f + (.05f*position)).SetEase(Ease.OutQuad);
             backupCardTransform.localScale = Vector3.one;
 
@@ -87,8 +87,8 @@ namespace UnityRoyale
             backupCardTransform.localScale = Vector3.one * 0.7f;
             
             //send it to the bottom left corner
-            backupCardTransform.anchoredPosition = new Vector2(120f, -300f);
-            backupCardTransform.DOAnchorPos(new Vector2(120f, 0f), .2f).SetEase(Ease.OutQuad);
+            backupCardTransform.anchoredPosition = new Vector2(180f, -300f);
+            backupCardTransform.DOAnchorPos(new Vector2(180f, 0f), .2f).SetEase(Ease.OutQuad);
 
             //populate CardData on the Card script
             Card cardScript = backupCardTransform.GetComponent<Card>();
@@ -165,7 +165,7 @@ namespace UnityRoyale
                 Destroy(cards[cardId].gameObject); //remove the card itself
                 
                 StartCoroutine(PromoteCardFromDeck(cardId, .2f));
-                StartCoroutine(AddCardToDeck(.3f));
+                StartCoroutine(AddCardToDeck(.6f));
             }
             else
             {

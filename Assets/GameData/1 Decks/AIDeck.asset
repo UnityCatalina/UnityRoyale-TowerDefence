@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: AIDeck
   m_EditorClassIdentifier: 
   labelsToInclude:
-  - m_LabelString: Base
+  - m_LabelString: AI
