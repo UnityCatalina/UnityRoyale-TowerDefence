@@ -13,6 +13,8 @@ namespace UnityRoyale
         private bool act = false;
         private Coroutine actingCoroutine;
 
+		private float opponentLoopTime = 10f;
+
         public void LoadDeck()
         {
             DeckLoader newDeckLoaderComp = gameObject.AddComponent<DeckLoader>();
@@ -51,7 +53,7 @@ namespace UnityRoyale
 		{
             while(act)
             {
-			    yield return new WaitForSeconds(5f);
+			    yield return new WaitForSeconds(opponentLoopTime);
 
 
                 if(OnCardUsed != null)
