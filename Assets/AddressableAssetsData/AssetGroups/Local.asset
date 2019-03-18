@@ -26,16 +26,20 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels:
     - AI
+    - Base
   - m_GUID: d7c71ca08e6ff4e9fa7e86dc215ccaed
     m_Address: Archers
     m_ReadOnly: 0
     m_SerializedLabels:
     - Elite
+    - Base
+    - AI
   - m_GUID: f73961e850ac543fcb00d172e912b492
     m_Address: Warrior
     m_ReadOnly: 0
     m_SerializedLabels:
     - AI
+    - Base
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 62fd5e501abef4d188f123698eca5c92, type: 2}
   m_SchemaSet:

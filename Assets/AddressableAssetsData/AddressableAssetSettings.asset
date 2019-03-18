@@ -108,7 +108,7 @@ MonoBehaviour:
       m_ClassName: UnityEditor.AddressableAssets.Settings.GroupSchemas.ContentUpdateGroupSchema
   m_InitializationObjects: []
   m_ActivePlayerDataBuilderIndex: 3
-  m_ActivePlayModeDataBuilderIndex: 2
+  m_ActivePlayModeDataBuilderIndex: 0
   m_DataBuilders:
   - {fileID: 11400000, guid: 1a55000a6f6da4f88bccad1c9ea0d099, type: 2}
   - {fileID: 11400000, guid: bfa229722bbf64355979bf619787f1d3, type: 2}
@@ -123,7 +123,7 @@ MonoBehaviour:
         m_SerializedData:
         - m_AssemblyName: mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
           m_ClassName: System.Int32
-          m_Data: 62547
+          m_Data: 61126
           m_Key: HostingServicePort
         - m_AssemblyName: mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
           m_ClassName: System.String
@@ -131,7 +131,7 @@ MonoBehaviour:
           m_Key: ContentRoot
         - m_AssemblyName: mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
           m_ClassName: System.Boolean
-          m_Data: True
+          m_Data: False
           m_Key: IsEnabled
         - m_AssemblyName: mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
           m_ClassName: System.String

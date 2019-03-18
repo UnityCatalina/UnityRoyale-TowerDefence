@@ -1081,7 +1081,7 @@ namespace UnityEditor.ShaderGraph
             finalShader.AppendLine(@"Shader ""{0}""", name);
             using (finalShader.BlockScope())
             {
-                finalShader.AppendLine("Properties");
+				finalShader.AppendLine("Properties");
                 using (finalShader.BlockScope())
                 {
                     finalShader.AppendLines(shaderProperties.GetPropertiesBlock(0));
@@ -1100,6 +1100,9 @@ namespace UnityEditor.ShaderGraph
                 finalShader.AppendLine(@"#include ""Packages/com.unity.shadergraph/ShaderGraphLibrary/ShaderVariablesFunctions.hlsl""");
                 finalShader.AppendLine(@"#include ""Packages/com.unity.shadergraph/ShaderGraphLibrary/Functions.hlsl""");
                 finalShader.AppendNewLine();
+
+				if(mode == GenerationMode.Preview)
+                	finalShader.AppendLine("#define SHADERGRAPH_PREVIEW");
 
                 finalShader.AppendLines(shaderProperties.GetPropertiesDeclaration(0));
 
