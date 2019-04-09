@@ -17,16 +17,11 @@ MonoBehaviour:
     m_SerializedData: []
   m_GUID: 151328d13c16947b8b2df2d555312652
   m_SerializeEntries:
-  - m_GUID: 3c5eb71ff2e974ce88c45317fe5ee720
-    m_Address: WarriorInnocuous
-    m_ReadOnly: 0
-    m_SerializedLabels: []
   - m_GUID: d7b5bb0137f614f22a35489614ddbbe8
     m_Address: Mage
     m_ReadOnly: 0
     m_SerializedLabels:
     - AI
-    - Base
   - m_GUID: d7c71ca08e6ff4e9fa7e86dc215ccaed
     m_Address: Archers
     m_ReadOnly: 0

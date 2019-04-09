@@ -46,7 +46,7 @@ MonoBehaviour:
         m_Value: '{UnityEngine.AddressableAssets.Addressables.RuntimePath}/[BuildTarget]'
     - m_InheritedParent: 
       m_Id: 885c1e78e9a144e208bb06957924902e
-      m_ProfileName: Remote hosted
+      m_ProfileName: Remote Hosted
       m_Values:
       - m_Id: 8a6a19676e1b64ee9b388011d7c59596
         m_Value: '[UnityEditor.EditorUserBuildSettings.activeBuildTarget]'
@@ -72,6 +72,20 @@ MonoBehaviour:
         m_Value: ServerData/[Android]
       - m_Id: 18d330823692a436dad1d1a4529a9d5e
         m_Value: http://[PrivateIpAddress]:[HostingServicePort]
+    - m_InheritedParent: 
+      m_Id: 188cb10a099ca406bbf88eefe42b66aa
+      m_ProfileName: GDC Showfloor
+      m_Values:
+      - m_Id: 8a6a19676e1b64ee9b388011d7c59596
+        m_Value: '[UnityEditor.EditorUserBuildSettings.activeBuildTarget]'
+      - m_Id: 1664b6053a27a4ac5bbc7846a27f09f1
+        m_Value: ServerData/[Android]
+      - m_Id: dba6ad3240f6c432c9ec347abe95130a
+        m_Value: http://10.40.142.46:[HostingServicePort]
+      - m_Id: 01d5a54ce7c8f4e6fb012b4231c0e6b9
+        m_Value: ServerData/[Android]
+      - m_Id: 18d330823692a436dad1d1a4529a9d5e
+        m_Value: http://10.40.142.46:[HostingServicePort]
     m_ProfileEntryNames:
     - m_Id: 8a6a19676e1b64ee9b388011d7c59596
       m_Name: BuildTarget
@@ -123,7 +137,7 @@ MonoBehaviour:
         m_SerializedData:
         - m_AssemblyName: mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
           m_ClassName: System.Int32
-          m_Data: 61126
+          m_Data: 61947
           m_Key: HostingServicePort
         - m_AssemblyName: mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
           m_ClassName: System.String
