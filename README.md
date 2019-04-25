@@ -6,10 +6,4 @@ A card-based tower defence game made using Content Evangelism's Tower Defence as
 
 Showcases LWRP and custom shaders, Addressables, Timeline Signals, and more.
 
-Heavily under development, more details coming.
-
-**Contact**
-
-If you have any questions about this example, please feek free to contact Ciro Continisio:
-- Email: ciro [ at ] unity3d.com
-- Twitter: [@CiroContns](https://twitter.com/CiroContns)
+**master on Unity Version - 2019.1.0f2**
